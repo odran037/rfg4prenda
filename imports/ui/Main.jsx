@@ -61,7 +61,7 @@ export const Main = () => {
   });
 
   const [randomFact, setRandomFact] = useState('');
-  const [favoriteFacts, setFavoriteFacts] = useState(facts);
+  const [favoriteFacts, setFavoriteFacts] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
   const [showHideFavorites, setShowHideFavorites] = useState(true);
 
@@ -107,7 +107,9 @@ export const Main = () => {
     let loadInitialFact = getRandomFact(randomType);
     
     loadInitialFact();
-  }, []);
+    setFavoriteFacts(facts);
+
+  }, [favoriteFacts]);
 
   return (
     <div className={classes.root}>
