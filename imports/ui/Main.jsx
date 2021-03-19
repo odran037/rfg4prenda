@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Actions } from './Actions.jsx';
+// import { FactsList } from './FactsList.jsx';
 import { useTracker } from 'meteor/react-meteor-data';
 import { FactsCollection } from '../api/facts';
 import Axios from 'axios';
@@ -11,6 +12,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Favorite from '@material-ui/icons/Favorite';
@@ -61,6 +63,7 @@ export const Main = () => {
   const [randomFact, setRandomFact] = useState('');
   const [favoriteFacts, setFavoriteFacts] = useState(facts);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [showHideFavorites, setShowHideFavorites] = useState(true);
 
   const getRandomFact = (kind) => {
     return () => {
@@ -133,9 +136,16 @@ export const Main = () => {
         
         <Grid item xs={12}>
           <Typography variant="h5" gutterBottom align="center">
-            My Favorite Facts
+            <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => setShowHideFavorites(!showHideFavorites)}
+              >
+                {showHideFavorites ? 'Hide' : 'Show'} Favorites
+            </Button>
           </Typography>
-          {favoriteFacts.length > 0 ? (
+
+          {showHideFavorites ? favoriteFacts.length > 0 ? (
             <List dense={false}>
               {favoriteFacts.map(fact => (
                 <ListItem key={fact._id}>
@@ -150,7 +160,7 @@ export const Main = () => {
             </List>
           ) : (
             <p className={classes.center}>You don't have any favorite facts yet.</p>
-          )}
+          ) : ''}
         </Grid>
 
       </Grid>
