@@ -55,11 +55,6 @@ const FACT_TYPES = ['math', 'date', 'year', 'trivia'];
 
 export const Main = () => {
   const classes = useStyles();
-
-  const facts = useTracker(() => {
-    return FactsCollection.find().fetch();
-  });
-
   const [randomFact, setRandomFact] = useState('');
   const [favoriteFacts, setFavoriteFacts] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -101,15 +96,18 @@ export const Main = () => {
     })
   }
 
+  useTracker(() => {
+    let favoriteFacts = FactsCollection.find().fetch();
+    setFavoriteFacts(favoriteFacts);
+  }, []);
+
   useEffect(() => {
     let random = Math.floor(Math.random() * 4);
     let randomType = FACT_TYPES[random];
     let loadInitialFact = getRandomFact(randomType);
     
     loadInitialFact();
-    setFavoriteFacts(facts);
-
-  }, [favoriteFacts]);
+  }, []);
 
   return (
     <div className={classes.root}>
