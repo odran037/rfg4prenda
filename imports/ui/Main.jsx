@@ -14,10 +14,10 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import Delete from '@material-ui/icons/Delete';
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
   },
   fav: {
     marginBottom: '-5px',
-    fill: '#f00'
+    fill: '#f00',
+    cursor: 'pointer'
   },
   center: {
     textAlign: 'center'
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  paper: {
+  box: {
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
@@ -114,7 +115,7 @@ export const Main = () => {
       <Grid container spacing={3}>
 
         <Grid item xs={12}>
-          <Paper className={classes.paper}>
+          <Box boxShadow={3} className={classes.box}>
             <Typography
               variant="h5"
               gutterBottom
@@ -129,7 +130,7 @@ export const Main = () => {
                 />)
               }
             </Typography>
-          </Paper>
+          </Box>
         </Grid>
 
         <Actions buttons={FACT_TYPES} click={getRandomFact}/>
@@ -145,22 +146,24 @@ export const Main = () => {
             </Button>
           </Typography>
 
-          {showHideFavorites ? favoriteFacts.length > 0 ? (
-            <List dense={false}>
-              {favoriteFacts.map(fact => (
-                <ListItem key={fact._id}>
-                  <ListItemText primary={fact.fact}/>
-                  <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="delete" onClick={() => removeFavorite(fact._id)}>
-                      <Delete className={classes.delete} />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              ))}
-            </List>
-          ) : (
-            <p className={classes.center}>You don't have any favorite facts yet.</p>
-          ) : ''}
+          <Box boxShadow={3} className={classes.box}>
+            {showHideFavorites ? favoriteFacts.length > 0 ? (
+              <List dense={false}>
+                {favoriteFacts.map(fact => (
+                  <ListItem key={fact._id} button>
+                    <ListItemText primary={fact.fact}/>
+                    <ListItemSecondaryAction>
+                      <IconButton edge="end" aria-label="delete" onClick={() => removeFavorite(fact._id)}>
+                        <Delete className={classes.delete} />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                ))}
+              </List>
+            ) : (
+              <p className={classes.center}>You don't have any favorite facts yet.</p>
+            ) : ''}
+          </Box>
         </Grid>
 
       </Grid>
