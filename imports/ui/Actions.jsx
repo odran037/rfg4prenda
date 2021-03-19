@@ -1,11 +1,9 @@
 import React from 'react';
 
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid/Grid';
 import Button from '@material-ui/core/Button';
 import { green } from '@material-ui/core/colors';
-
-
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
   palette: {

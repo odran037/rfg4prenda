@@ -139,31 +139,31 @@ export const Main = () => {
           <Typography variant="h5" gutterBottom align="center">
             <Button
                 variant="contained"
-                color="secondary"
+                color="default"
                 onClick={() => setShowHideFavorites(!showHideFavorites)}
               >
                 {showHideFavorites ? 'Hide' : 'Show'} Favorites
             </Button>
           </Typography>
 
-          <Box boxShadow={3} className={classes.box}>
             {showHideFavorites ? favoriteFacts.length > 0 ? (
-              <List dense={false}>
-                {favoriteFacts.map(fact => (
-                  <ListItem key={fact._id} button>
-                    <ListItemText primary={fact.fact}/>
-                    <ListItemSecondaryAction>
-                      <IconButton edge="end" aria-label="delete" onClick={() => removeFavorite(fact._id)}>
-                        <Delete className={classes.delete} />
-                      </IconButton>
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                ))}
-              </List>
+              <Box boxShadow={3} className={classes.box}>
+                <List dense={false}>
+                  {favoriteFacts.map(fact => (
+                    <ListItem key={fact._id} button>
+                      <ListItemText primary={fact.fact}/>
+                      <ListItemSecondaryAction>
+                        <IconButton edge="end" aria-label="delete" onClick={() => removeFavorite(fact._id)}>
+                          <Delete className={classes.delete} />
+                        </IconButton>
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  ))}
+                </List>
+              </Box>
             ) : (
               <p className={classes.center}>You don't have any favorite facts yet.</p>
             ) : ''}
-          </Box>
         </Grid>
 
       </Grid>
